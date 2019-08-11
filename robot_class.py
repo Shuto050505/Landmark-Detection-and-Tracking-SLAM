@@ -78,7 +78,6 @@ class robot:
             '''
            
         measurements = None
-        
         ## TODO: iterate through all of the landmarks in a world
         
         ## TODO: For each landmark
@@ -91,6 +90,12 @@ class robot:
         ##    as list.append([index, dx, dy]), this format is important for data creation done later
         
         ## TODO: return the final, complete list of measurements
+        for i, landmark in enumerate(self.landmarks):
+            dx = -self.x + landmark[0] + self.rand() * self.measurement_noise
+            dy = -self.y + landmark[1] + self.rand() * self.measurement_noise
+            is_in_range = (abs(dx) <= self.measurement_range) and (abs(dy) <= self.measurement_range)
+            if (self.measurement_noise == -1) or is_in_range:
+                measurements.append([i, dx, dy])
         return measurements
 
 
